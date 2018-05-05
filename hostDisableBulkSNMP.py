@@ -6,7 +6,7 @@ Disable bulk SNMP on all existing hosts.
 You can also filter with a dict:
 
     f  = {  'host' : 'somehostname'  }
-    hosts = zapi.host.get(output=['hostids', 'host'], filter=f)
+    hosts = zapi.hostinterface.get(output=['hostids', 'host'], filter=f)
 
 You can filter by name, template, group etc...
 
