@@ -56,6 +56,12 @@ ITALY-ITALY/BOLOGNA-ITALY/BOLOGNA/Core;ITBOSWCORE-Bologna core switch;192.168.2.
 - error check for existing hosts and overwrite/do not touch parameter
 
 
+### hostMover.py - move hosts to hostgroups
+
+From a csv file:
+- move hosts to a specific hostgroup list
+
+Uses the same host.csv format of hostBulkInsert.py.
 
 
 [...]
