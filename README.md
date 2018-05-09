@@ -6,6 +6,8 @@ Zabbix snippets and sample code for:
 - massive hostgroup moving
 - massive host details and properties modification 
 - data extraction: inventory query, current problems
+- hosts query
+- item data extraction (history and trend)
 - misc automation stuff
 
 **Caution** : sample scripts are mostly without error checking and they assume that you know what you are doing!
