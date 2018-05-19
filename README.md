@@ -2,6 +2,7 @@
 
 Zabbix snippets and sample code for:
 
+- json parsing/LLD/item prototyping
 - massive host insert
 - massive hostgroup moving
 - massive host details and properties modification 
@@ -17,10 +18,36 @@ Zabbix snippets and sample code for:
 
 - python 2.7
 - py-zabbix (`pip install py-zabbix`)
-
+- requests (`pip install requests`)
 
 ## Details and informations
 
+
+### jsonLLD.py and jsonGet.py
+
+Sample scripts for JSON low level discovery: creates item protypes from the main json, then gather data from single items.
+
+Currently using the mock json from here: https://jsonplaceholder.typicode.com/users
+
+
+
+
+#### Command line:
+```
+$ jsonLLD.py
+{"data": [{"{#ID}": 1, "{#URL}": "https://jsonplaceholder.typicode.com/users/1", "{#NAME}": "Leanne Graham"}, {"{#ID}": 2, "{#URL}": "https://jsonplaceholder.typicode.com/users/2", "{#NAME}": "Ervin Howell"},
+[cut]
+```
+```
+$ jsonGet.py  -i 10 -f phone
+024-648-3804
+$ jsonGet.py  -i 10 -f name
+Clementina DuBuque
+```
+
+#### Zabbix implementation: 
+- Create a Discovery rule of "Zabbix agent" type and set it to run `system.run[/usr/bin/jsonLLD.py]` (mind the path!)
+- create an item prototype for each json field you want to work on (ie: Item name: `{#NAME} telephone number`, Item key `system.run[/usr/bin/jsonGet.py  -i {#ID} -f phone]` )
 
 
 ### hostBulkInsert.py
