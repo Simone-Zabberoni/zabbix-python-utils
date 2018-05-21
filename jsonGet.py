@@ -23,11 +23,6 @@ Usage:
 	    "lng": "57.2232"
 	}
 
-
-
-TODOs:
-- update documentation and usage
-
 """
 
 
