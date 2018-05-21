@@ -25,18 +25,31 @@ Zabbix snippets and sample code for:
 
 ### jsonLLD.py and jsonGet.py
 
-**jsonLLD.py**: Sample script for JSON low level discovery: creates item protypes from the main json.
-Currently using the mock json from here: https://jsonplaceholder.typicode.com/users
+**jsonLLD.py**: Script for JSON low level discovery, produces JSON for Zabbix LLD according to https://www.zabbix.com/documentation/3.4/manual/discovery/low_level_discovery
 
-**jsonGet.py**: Gather data from URL
+Requires a base url and a set of macro:JSONfield to remap original data to Zabbix format
 
 
+**jsonGet.py**: Gather data from URL, using a dotted notation
 
 
 #### Command line:
 ```
-$ jsonLLD.py
-{"data": [{"{#ID}": 1, "{#URL}": "https://jsonplaceholder.typicode.com/users/1", "{#NAME}": "Leanne Graham"}, {"{#ID}": 2, "{#URL}": "https://jsonplaceholder.typicode.com/users/2", "{#NAME}": "Ervin Howell"},
+$ jsonLLD.py -i https://jsonplaceholder.typicode.com/users -m "{#ID}:id,{#COMPANY}:company.name,{#NAME}:name,{#MAIL}:email"
+{
+    "data": [
+        {
+            "{#COMPANY}": "Romaguera-Crona",
+            "{#ID}": 1,
+            "{#MAIL}": "Sincere@april.biz",
+            "{#NAME}": "Leanne Graham"
+        },
+        {
+            "{#COMPANY}": "Deckow-Crist",
+            "{#ID}": 2,
+            "{#MAIL}": "Shanna@melissa.tv",
+            "{#NAME}": "Ervin Howell"
+        },
 [cut]
 ```
 
