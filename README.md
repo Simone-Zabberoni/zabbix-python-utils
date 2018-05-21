@@ -25,11 +25,10 @@ Zabbix snippets and sample code for:
 
 ### jsonLLD.py and jsonGet.py
 
-Sample scripts for JSON low level discovery: creates item protypes from the main json, then gather data from single items.
+jsonLLD.py: Sample script for JSON low level discovery: creates item protypes from the main json.
+jsonGet.py: Gather data from single items.
 
 Currently using the mock json from here: https://jsonplaceholder.typicode.com/users
-
-
 
 
 #### Command line:
@@ -38,11 +37,23 @@ $ jsonLLD.py
 {"data": [{"{#ID}": 1, "{#URL}": "https://jsonplaceholder.typicode.com/users/1", "{#NAME}": "Leanne Graham"}, {"{#ID}": 2, "{#URL}": "https://jsonplaceholder.typicode.com/users/2", "{#NAME}": "Ervin Howell"},
 [cut]
 ```
+
 ```
-$ jsonGet.py  -i 10 -f phone
-024-648-3804
-$ jsonGet.py  -i 10 -f name
+$ jsonGet.py -i https://jsonplaceholder.typicode.com/users/10 -f name
 Clementina DuBuque
+
+$ jsonGet.py -i https://jsonplaceholder.typicode.com/users/10 -f company.name
+Hoeger LLC
+
+$ jsonGet.py -i https://jsonplaceholder.typicode.com/users/10 -f address.geo
+{
+    "lat": "-38.2386",
+    "lng": "57.2232"
+}
+
+$ jsonGet.py -i https://jsonplaceholder.typicode.com/users -f 9.company.name
+Hoeger LLC
+
 ```
 
 #### Zabbix implementation: 
