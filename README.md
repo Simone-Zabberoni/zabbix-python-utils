@@ -25,10 +25,12 @@ Zabbix snippets and sample code for:
 
 ### jsonLLD.py and jsonGet.py
 
-jsonLLD.py: Sample script for JSON low level discovery: creates item protypes from the main json.
-jsonGet.py: Gather data from single items.
-
+**jsonLLD.py**: Sample script for JSON low level discovery: creates item protypes from the main json.
 Currently using the mock json from here: https://jsonplaceholder.typicode.com/users
+
+**jsonGet.py**: Gather data from URL
+
+
 
 
 #### Command line:
