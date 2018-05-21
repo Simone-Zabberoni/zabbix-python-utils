@@ -58,7 +58,7 @@ Hoeger LLC
 
 #### Zabbix implementation: 
 - Create a Discovery rule of "Zabbix agent" type and set it to run `system.run[/usr/bin/jsonLLD.py]` (mind the path!)
-- create an item prototype for each json field you want to work on (ie: Item name: `{#NAME} telephone number`, Item key `system.run[/usr/bin/jsonGet.py  -i {#ID} -f phone]` )
+- create an item prototype for each json field you want to work on (ie: Item name: `{#NAME} company name`, Item key `system.run[/usr/bin/jsonGet.py -i {#BASEURL}/{#ID} -f company.name]` )
 
 
 ### hostBulkInsert.py
