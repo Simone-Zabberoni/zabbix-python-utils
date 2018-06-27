@@ -13,7 +13,7 @@ HostID: 12556 - Host: some-host - ItemID: 267225 - Item: ICMP response time - Ke
 from zabbix.api import ZabbixAPI
 import sys
 
-zabbixServer    = 'http://yousrserver/zabbix/'
+zabbixServer    = 'http://yourserver/zabbix/'
 zabbixUser      = 'someuser'
 zabbixPass      = 'somepass'
 

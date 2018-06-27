@@ -19,7 +19,7 @@ import time
 import datetime
 
 
-zabbixServer    = 'http://yousrserver/zabbix/'
+zabbixServer    = 'http://yourserver/zabbix/'
 zabbixUser      = 'someuser'
 zabbixPass      = 'somepass'
 

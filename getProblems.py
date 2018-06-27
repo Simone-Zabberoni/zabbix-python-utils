@@ -8,7 +8,7 @@ Get current problems, print out some details
 
 from zabbix.api import ZabbixAPI
 
-zabbixServer    = 'http://yousrserver/zabbix/'
+zabbixServer    = 'http://yourserver/zabbix/'
 zabbixUser      = 'someuser'
 zabbixPass      = 'somepass'
 

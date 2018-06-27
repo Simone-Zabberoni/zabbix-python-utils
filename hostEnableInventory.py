@@ -14,7 +14,7 @@ You can filter by name, template, group etc...
 
 from zabbix.api import ZabbixAPI
 
-zabbixServer    = 'http://yousrserver/zabbix/'
+zabbixServer    = 'http://yourserver/zabbix/'
 zabbixUser      = 'someuser'
 zabbixPass      = 'somepass'
 

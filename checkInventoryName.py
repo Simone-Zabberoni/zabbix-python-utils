@@ -7,7 +7,7 @@ Check all hosts and return host name <-> inventory name matching
 
 from zabbix.api import ZabbixAPI
 
-zabbixServer    = 'http://yousrserver/zabbix/'
+zabbixServer    = 'http://yourserver/zabbix/'
 zabbixUser      = 'someuser'
 zabbixPass      = 'somepass'
 

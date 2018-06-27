@@ -17,7 +17,7 @@ import csv
 from zabbix.api import ZabbixAPI
 
 fileName        = 'hosts.csv'
-zabbixServer    = 'http://yousrserver/zabbix/'
+zabbixServer    = 'http://yourserver/zabbix/'
 zabbixUser      = 'someuser'
 zabbixPass      = 'somepass'
 
