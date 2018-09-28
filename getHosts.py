@@ -10,9 +10,9 @@ You can provide an argument to filter a specific host
 from zabbix.api import ZabbixAPI
 import sys
 
-zabbixServer    = 'http://yourserver/zabbix/'
-zabbixUser      = 'someuser'
-zabbixPass      = 'somepass'
+zabbixServer    = 'http://localhost/zabbix/'
+zabbixUser      = 'admin'
+zabbixPass      = 'zabbix'
 
 zapi = ZabbixAPI(url=zabbixServer, user=zabbixUser, password=zabbixPass)
 
