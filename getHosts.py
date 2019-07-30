@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Get all hosts, print the id and name 
+Get all hosts, print the id and name (or extended info with -e)
 
 You can provide an argument to filter a specific host
 """
@@ -78,7 +78,6 @@ def ArgumentParser():
 
 
 def main(argv):
-    print('-- Host Bulk Insert --')
 
     # Parse arguments and build work variables
     args = ArgumentParser()
