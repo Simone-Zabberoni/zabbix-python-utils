@@ -7,25 +7,102 @@ Get all hosts, print the id and name
 You can provide an argument to filter a specific host
 """
 
+
 from zabbix.api import ZabbixAPI
+import logging
+import json
+import csv
+import argparse
+import getpass
+import getopt
+import re
 import sys
-
-zabbixServer    = 'http://localhost/zabbix/'
-zabbixUser      = 'admin'
-zabbixPass      = 'zabbix'
-
-zapi = ZabbixAPI(url=zabbixServer, user=zabbixUser, password=zabbixPass)
+import os
 
 
-if (sys.argv[1:]):
-    # Filter based on the cmdline argument
-    f  = {  'host' : sys.argv[1:]  }
-    hosts = zapi.host.get(filter=f, output=['hostids', 'host'] );
-else:
-    hosts = zapi.host.get(output=['hostids', 'host'] );
+# Class for argparse env variable support
 
 
-for host in hosts:
-    print "ID: {} - Host: {}".format(host['hostid'], host['host'])
+class EnvDefault(argparse.Action):
+    # From https://stackoverflow.com/questions/10551117/
+    def __init__(self, envvar, required=True, default=None, **kwargs):
+        if not default and envvar:
+            if envvar in os.environ:
+                default = os.environ[envvar]
+        if required and default:
+            required = False
+        super(EnvDefault, self).__init__(default=default, required=required,
+                                         **kwargs)
+
+    def __call__(self, parser, namespace, values, option_string=None):
+        setattr(namespace, self.dest, values)
 
 
+def jsonPrint(jsonUgly):
+    print(json.dumps(jsonUgly, indent=4, separators=(',', ': ')))
+
+
+def ArgumentParser():
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('-Z',
+                        required=True,
+                        action=EnvDefault,
+                        envvar='ZABBIX_SERVER',
+                        help="Specify the zabbix server URL ie: http://yourserver/zabbix/ (ZABBIX_SERVER environment variable)",
+                        metavar='zabbix-server-url')
+
+    parser.add_argument('-u',
+                        required=True,
+                        action=EnvDefault,
+                        envvar='ZABBIX_USERNAME',
+                        help="Specify the zabbix username (ZABBIX_USERNAME environment variable)",
+                        metavar='Username')
+
+    parser.add_argument('-p',
+                        required=True,
+                        action=EnvDefault,
+                        envvar='ZABBIX_PASSWORD',
+                        help="Specify the zabbix username (ZABBIX_PASSWORD environment variable)",
+                        metavar='Password')
+
+    parser.add_argument('-f',
+                        required=False,
+                        help="Hostname to search",
+                        metavar='hostname')
+
+    parser.add_argument('-e', action='store_true',
+                        help="Extended output")
+
+    return parser.parse_args()
+
+
+def main(argv):
+    print('-- Host Bulk Insert --')
+
+    # Parse arguments and build work variables
+    args = ArgumentParser()
+    zabbixURL = args.Z
+    zabbixUsername = args.u
+    zabbixPassword = args.p
+    hostNameFilter = args.f
+
+    zapi = ZabbixAPI(url=zabbixURL, user=zabbixUsername,
+                     password=zabbixPassword)
+
+    if (hostNameFilter):
+        # Filter based on the cmdline argument
+        f = {'host': hostNameFilter}
+        hosts = zapi.host.get(filter=f, output='extend', selectTags='extend')
+    else:
+        hosts = zapi.host.get(output='extend')
+
+    if (args.e):
+        jsonPrint(hosts)
+    else:
+        for host in hosts:
+            print("ID: {} - Host: {}".format(host['hostid'], host['host']))
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
