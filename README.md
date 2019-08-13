@@ -15,11 +15,21 @@ Zabbix snippets and sample code for:
 
 ## Requirements
 
-- python 2.7/3
+- python 2.7/3 (in progress on dev branch)
 - py-zabbix
 - requests
 
 ## Details and informations
+
+### Arguments and env-var - in progress
+
+All scripts will share the base command line with ENV variables support, like
+
+```
+# export ZABBIX_SERVER='https://your_zabbix_host/zabbix/'
+# export ZABBIX_PASSWORD='admin'
+# export ZABBIX_USERNAME='secretPassword'
+```
 
 ### hostBulkInsert.py
 
