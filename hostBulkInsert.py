@@ -8,8 +8,23 @@ From a single csv file:
     - assign the correct interface
     - assign them to their correct groups
     - link them to the correct templates
+    - link them to the correct proxy
 
-Please refer to README.md for hosts.csv syntax
+Env var support:
+# export ZABBIX_SERVER='https://your_zabbix_host/zabbix/'
+# export ZABBIX_PASSWORD='admin'
+# export ZABBIX_USERNAME='secretPassword'
+
+
+# ./hostBulkInsert.py -f HOSTS.csv      <- stops if hits an existing host
+# ./hostBulkInsert.py -f HOSTS.csv -s   <- skips existing hosts
+
+
+Csv file sample (see README for more):
+
+Hostname; IP Address; Groups; Tags; Description; ICMP; SNMP community; Proxy; Templates; Interfaces
+SomeHost;8.8.8.8;Group1-Group2-Routers;TagName=someValue;Device Description;snmpCommnity;ZabbixProxyName;Template Net Cisco IOS SNMPv2;agent-SNMP
+SecondHost;8.8.8.8;Group3-Group2-SiteA;FirstTag=value,TagName=anotherValue;Device Description;snmpCommnity;;Template Net Cisco IOS SNMPv2;agent-SNMP
 
 """
 
