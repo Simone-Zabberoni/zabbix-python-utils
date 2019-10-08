@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-JSON Get script
+JSON Get script - obsoleted by HTTP AGENT
 
 Install needed libraries:
         pip install requests
@@ -28,7 +28,8 @@ Usage:
 
 import requests
 import json
-import sys, argparse
+import sys
+import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', required=True, metavar='Input URL')
@@ -59,6 +60,6 @@ for item in args.f.split('.'):
 
 # Simple output for properties, pretty json output for dicts
 if isinstance(output, dict):
-    print ( json.dumps(output, indent=4, separators=(',', ': ')) )
+    print(json.dumps(output, indent=4, separators=(',', ': ')))
 else:
-    print ( output )
+    print(output)
