@@ -81,18 +81,10 @@ Fields:
 
 - proxy existance check and what to do if template does not exists
 - template existance check and what to do if template does not exists
+- convert to the ENV usage all the scripts
+- add documentation
 
-### hostMover.py - move hosts to hostgroups
-
-From a csv file:
-
-- move hosts to a specific hostgroup list
-
-Uses the same host.csv format of hostBulkInsert.py.
-
-### Miscellaneous snips
-
-[TBD]
+## Obsoleted stuff
 
 ### jsonLLD.py and jsonGet.py (obsoleted by Zabbix HTTP Item in 4.0)
 
