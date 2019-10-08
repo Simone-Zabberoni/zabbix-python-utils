@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-JSON LLD script
+JSON LLD script - obsoleted by HTTP AGENT
 
 Produces JSON for Zabbix LLD according to https://www.zabbix.com/documentation/3.4/manual/discovery/low_level_discovery
 
