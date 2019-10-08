@@ -1,6 +1,6 @@
-# zabbix-python-snips
+# Zabbix Python Command line utilities
 
-Zabbix snippets and sample code for:
+Collection of CLI tool for various usages:
 
 - massive host insert
 - massive hostgroup moving
@@ -15,7 +15,7 @@ Zabbix snippets and sample code for:
 
 ## Requirements
 
-- python 2.7/3 (in progress on dev branch)
+- python 2.7 / 3
 - py-zabbix
 - requests
 
@@ -30,6 +30,8 @@ All scripts will share the base command line with ENV variables support, like
 # export ZABBIX_PASSWORD='admin'
 # export ZABBIX_USERNAME='secretPassword'
 ```
+
+Most of them are alreay compliant, other are in progress.
 
 ### hostBulkInsert.py
 
@@ -48,6 +50,13 @@ Usage:
 
 ```
 # hostBulkInsert.py -Z http://yourserver/zabbix -u admin -p somePass -f "zabbixHosts.csv" -s
+
+# export ZABBIX_SERVER='https://your_zabbix_host/zabbix/'
+# export ZABBIX_USERNAME='admin'
+# export ZABBIX_PASSWORD='secretPassword'
+# ./hostBulkInsert.py -f HOSTS.csv      <- stops with error if hits an existing host
+# ./hostBulkInsert.py -f HOSTS.csv -s   <- check and skips existing hosts
+
 ```
 
 _File format_
