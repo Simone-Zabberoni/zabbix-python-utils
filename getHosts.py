@@ -92,7 +92,7 @@ def main(argv):
     if (hostNameFilter):
         # Filter based on the cmdline argument
         f = {'host': hostNameFilter}
-        hosts = zapi.host.get(filter=f, output='extend', selectTags='extend')
+        hosts = zapi.host.get(search=f, output='extend', selectTags='extend')
     else:
         hosts = zapi.host.get(output='extend')
 
