@@ -9,22 +9,24 @@ From a single csv file:
     - assign them to their correct groups
     - link them to the correct templates
     - link them to the correct proxy
+    - add tags and user macros
 
 Env var support:
 # export ZABBIX_SERVER='https://your_zabbix_host/zabbix/'
-# export ZABBIX_PASSWORD='admin'
-# export ZABBIX_USERNAME='secretPassword'
+# export ZABBIX_USERNAME='admin'
+# export ZABBIX_PASSWORD='secretPassword'
 
 
-# ./hostBulkInsert.py -f HOSTS.csv      <- stops if hits an existing host
-# ./hostBulkInsert.py -f HOSTS.csv -s   <- skips existing hosts
+
+# ./hostBulkInsert.py -f HOSTS.csv      <- stops with error if hits an existing host
+# ./hostBulkInsert.py -f HOSTS.csv -s   <- check and skips existing hosts
 
 
 Csv file sample (see README for more):
 
-Hostname; IP Address; Groups; Tags; Description; ICMP; SNMP community; Proxy; Templates; Interfaces
-SomeHost;8.8.8.8;Group1-Group2-Routers;TagName=someValue;Device Description;snmpCommnity;ZabbixProxyName;Template Net Cisco IOS SNMPv2;agent-SNMP
-SecondHost;8.8.8.8;Group3-Group2-SiteA;FirstTag=value,TagName=anotherValue;Device Description;snmpCommnity;;Template Net Cisco IOS SNMPv2;agent-SNMP
+Hostname;IP Address;Groups;Tags;Description;ICMP;SNMP community;Proxy;Templates;Interfaces;Macros
+SomeHost;8.8.8.8;Group1-Group2-Routers;TagName=someValue;Device Description;snmpCommnity;ZabbixProxyName;Template Net Cisco IOS SNMPv2;agent-SNMP; {$SOMETHING}=25
+SecondHost;8.8.8.8;Group3-Group2-SiteA;FirstTag=value,TagName=anotherValue;Device Description;snmpCommnity;;Template Net Cisco IOS SNMPv2;agent-SNMP;
 
 """
 
@@ -143,10 +145,10 @@ def main(argv):
 
     # Read all host groups and templates
     for host in hostData:
-        for hostgroupName in host['Groups'].split("-"):
+        for hostgroupName in host['Groups'].split(","):
             hostGroupNames.append(hostgroupName)
 
-        for templateName in host['Templates'].split("-"):
+        for templateName in host['Templates'].split(","):
             if templateName != 'DO_NOT_ADD':
                 templateNames.append(templateName)
 
@@ -192,6 +194,7 @@ def main(argv):
         h_interfaces = []
         h_proxy = host['Proxy']
         h_tags = []
+        h_macros = []
 
         if (host['Interfaces'] == 'DO_NOT_ADD'):
             print('Skipping host: {}'.format(h_name))
@@ -209,16 +212,27 @@ def main(argv):
         print('Working on: {}'.format(h_name))
 
         # Build Tags object
-        for tagString in host['Tags'].split(","):
-            [tagName, tagValue] = tagString.split("=")
-            h_tags.append({
-                'tag': tagName,
-                'value': tagValue
-            })
-        # jsonPrint(h_tags)
+        if len(host['Tags']) > 0:
+            for tagString in host['Tags'].split(","):
+                [tagName, tagValue] = tagString.split("=")
+                h_tags.append({
+                    'tag': tagName,
+                    'value': tagValue
+                })
+            # jsonPrint(h_tags)
+
+        # Build Macro object
+        if len(host['Macros']) > 0:
+            for macroString in host['Macros'].split(","):
+                [macroName, macroValue] = macroString.split("=")
+                h_macros.append({
+                    'macro': macroName,
+                    'value': macroValue
+                })
+            # jsonPrint(h_macros)
 
         # Build interface object
-        for interface in host['Interfaces'].split("-"):
+        for interface in host['Interfaces'].split(","):
             if (interfaceType[interface] == 1):
                 port = 10050
             else:
@@ -234,25 +248,25 @@ def main(argv):
             })
 
         # Build hostgroup object
-        for hostgroup in host['Groups'].split("-"):
+        for hostgroup in host['Groups'].split(","):
             h_groups.append({
                 'groupid': hostGroupId[hostgroup],
             })
 
         # Build template object
-        for template in host['Templates'].split("-"):
+        for template in host['Templates'].split(","):
             h_templates.append({
                 'templateid': templateId[template],
             })
 
         if len(h_proxy) > 0:
             zapi_result = zapi.host.create(host=h_name, tags=h_tags, description=h_desc, interfaces=h_interfaces,
-                                           groups=h_groups, templates=h_templates, proxy_hostid=proxyId[h_proxy])
+                                           groups=h_groups, templates=h_templates, proxy_hostid=proxyId[h_proxy], macros=h_macros)
 
         else:
 
             zapi_result = zapi.host.create(
-                host=h_name, tags=h_tags, description=h_desc, interfaces=h_interfaces, groups=h_groups, templates=h_templates)
+                host=h_name, tags=h_tags, description=h_desc, interfaces=h_interfaces, groups=h_groups, templates=h_templates,  macros=h_macros)
         jsonPrint(zapi_result)
 
 

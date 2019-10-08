@@ -42,6 +42,7 @@ From a single csv file:
   - link them to the correct templates
   - add tags and descriptions
   - optional proxy assignment
+  - user macros
 
 Usage:
 
@@ -54,23 +55,23 @@ _File format_
 Sample csv file:
 
 ```
-Hostname; IP Address; Groups; Tags; Description; ICMP; SNMP community; Proxy; Templates; Interfaces
-SomeHost;8.8.8.8;Group1-Group2-Routers;TagName=someValue;Device Description;snmpCommnity;ZabbixProxyName;Template Net Cisco IOS SNMPv2;agent-SNMP
-SecondHost;8.8.8.8;Group3-Group2-SiteA;FirstTag=value,TagName=anotherValue;Device Description;snmpCommnity;;Template Net Cisco IOS SNMPv2;agent-SNMP
+Hostname;IP Address;Groups;Tags;Description;ICMP;SNMP community;Proxy;Templates;Interfaces;Macros
+SomeHost;8.8.8.8;Group1-Group2-Routers;TagName=someValue;Device Description;snmpCommnity;ZabbixProxyName;Template Net Cisco IOS SNMPv2;agent-SNMP;{$SOMETHING}=25
+SecondHost;8.8.8.8;Group3-Group2-SiteA;FirstTag=value,TagName=anotherValue;Device Description;snmpCommnity;;Template Net Cisco IOS SNMPv2;agent-SNMP;
 ```
 
 Fields:
 
-- Full hostgroup path is a '-' delimited list of nested hostgroups (Zabbix syntax: group/subgroup1/subgroup2)
-- Templates is a '-' delimited list of existing templates to apply or a 'DO_NOT_ADD' string
-- Interfaces could be agent, snmp or both (agent-SNMP)
-- Tags are separated by ',' in the format TagName=TagValue
+- Full hostgroup path is a ',' delimited list of nested hostgroups (Zabbix syntax: group/subgroup1/subgroup2)
+- Templates is a ',' delimited list of existing templates to apply or a `DO_NOT_ADD` string
+- Interfaces could be agent, snmp or both (`agent,SNMP`)
+- Tags are separated by ',' in the format `TagName=TagValue,AnotherTagName=TagValue`
+- Macros are separated by ',' in the format `{$ONEMACRO}=102,{$ANOTHERMACRO}=28`
 
 **TODO**
 
 - proxy existance check and what to do if template does not exists
 - template existance check and what to do if template does not exists
-- tags are mandatory, add check
 
 ### hostMover.py - move hosts to hostgroups
 
