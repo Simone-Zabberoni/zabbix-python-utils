@@ -22,7 +22,6 @@ HostID: 10675 - Host: SomePrinter (192.168.10.20) - ItemID: 135371 - Item name: 
 HostID: 10675 - Host: SomePrinter (192.168.10.20) - ItemID: 136890 - Item name: Supply TK-3190 Total - Key: printer.supplyTotal[1]
 HostID: 10675 - Host: SomePrinter (192.168.10.20) - ItemID: 136892 - Item name: Supply TK-3190 Remaining (%) - Key: printer.supplyUsablePercent[1]
 HostID: 10675 - Host: SomePrinter (192.168.10.20) - ItemID: 136894 - Item name: Supply TK-3190 Remaining - Key: printer.supplyUsable[1]
-
 """
 
 from zabbix.api import ZabbixAPI

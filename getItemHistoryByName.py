@@ -16,7 +16,6 @@ ItemID: 158495 - Item: ICMP loss - Key: icmppingloss
 1565676196 13/08/2019 08:03:16 Value: 0.0000
 1565676256 13/08/2019 08:04:16 Value: 0.0000
 1565676316 13/08/2019 08:05:16 Value: 0.0000
-
 """
 
 from zabbix.api import ZabbixAPI

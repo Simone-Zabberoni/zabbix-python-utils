@@ -16,7 +16,6 @@ ItemID: 113312 - Item: Page count (BW) - Key: printer.pgBW
 1549036800 01/02/2019 17:00:00 Value: Min: 15531 - Max: 15531 - Avg: 15531
 1549263600 04/02/2019 08:00:00 Value: Min: 15532 - Max: 15532 - Avg: 15532
 1549267200 04/02/2019 09:00:00 Value: Min: 15538 - Max: 15538 - Avg: 15538
-
 """
 
 from zabbix.api import ZabbixAPI
