@@ -24,9 +24,9 @@ Env var support:
 
 Csv file sample (see README for more):
 
-Hostname;IP Address;Groups;Tags;Description;ICMP;SNMP community;Proxy;Templates;Interfaces;Macros
-SomeHost;8.8.8.8;Group1-Group2-Routers;TagName=someValue;Device Description;snmpCommnity;ZabbixProxyName;Template Net Cisco IOS SNMPv2;agent-SNMP; {$SOMETHING}=25
-SecondHost;8.8.8.8;Group3-Group2-SiteA;FirstTag=value,TagName=anotherValue;Device Description;snmpCommnity;;Template Net Cisco IOS SNMPv2;agent-SNMP;
+Hostname;IP Address;Groups;Tags;Description;SNMP community;Proxy;Templates;Interfaces;Macros
+SomeHost;8.8.8.8;Group1,Group2,Routers;TagName=someValue;Device Description;snmpCommnity;ZabbixProxyName;Template Net Cisco IOS SNMPv2;agent-SNMP; {$SOMETHING}=25
+SecondHost;8.8.8.8;Group3,Group2,SiteA;FirstTag=value,TagName=anotherValue;Device Description;snmpCommnity;;Template Net Cisco IOS SNMPv2;agent-SNMP;
 
 """
 
