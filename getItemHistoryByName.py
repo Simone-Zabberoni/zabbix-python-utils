@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -89,7 +89,7 @@ def ArgumentParser():
     parser.add_argument('-I',
                         required=True,
                         help="Specify the item name",
-                        metavar='to-date')
+                        metavar='item-name')
 
     return parser.parse_args()
 
@@ -108,10 +108,11 @@ def main(argv):
     itemFilter = {'name': itemName}
 
     # Convert from/to dates into timestamps
-    fromTimestamp = time.mktime(datetime.datetime.strptime(
-        args.f, "%d/%m/%Y %H:%M").timetuple())
-    tillTimestamp = time.mktime(datetime.datetime.strptime(
-        args.t, "%d/%m/%Y %H:%M").timetuple())
+    fromTimestamp = int(time.mktime(datetime.datetime.strptime(
+        args.f, "%d/%m/%Y %H:%M").timetuple()))
+
+    tillTimestamp = int(time.mktime(datetime.datetime.strptime(
+        args.t, "%d/%m/%Y %H:%M").timetuple()))
 
     # API Connect
     print('Connecting to {}'.format(zabbixURL))
