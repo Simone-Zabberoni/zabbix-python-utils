@@ -4,6 +4,8 @@
 """
 Enable or disable by triggerid
 
+python setTriggerStatus.py -Z http://somezabbix/ -u Admin -p somepassword -i "22321386 1232145 1234" -s 0
+
 """
 
 
@@ -89,7 +91,14 @@ def main(argv):
     zapi = ZabbixAPI(url=zabbixURL, user=zabbixUsername,
                      password=zabbixPassword)
 
-    triggers = zapi.trigger.update(triggerid=args.i, status=args.s)
+    params = []
+    for triggerid in args.i.split(' '):
+        trigObj = {"triggerid": triggerid, "status": args.s}
+        params.append(trigObj)
+
+    # Call request directly for the custom param field, instead of using zapi.trigger.update
+    result = zapi.do_request('trigger.update', params=params)
+    jsonPrint(result)
 
 
 if __name__ == "__main__":
