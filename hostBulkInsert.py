@@ -191,6 +191,7 @@ def main(argv):
         h_name = host['Hostname']
         h_desc = host['Description']
         h_ip = host['IP Address']
+        h_dns = host['DNSName']
         h_interfaces = []
         h_proxy = host['Proxy']
         h_tags = []
@@ -243,7 +244,7 @@ def main(argv):
                 'main': 1,
                 'useip': 1,
                 'ip': h_ip,
-                'dns': "",
+                'dns': h_dns,
                 'port': port
             })
 
