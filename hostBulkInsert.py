@@ -192,14 +192,22 @@ def main(argv):
         h_desc = host['Description']
         h_ip = host['IP Address']
         h_dns = host['DNSName']
+        
         h_interfaces = []
         h_proxy = host['Proxy']
         h_tags = []
         h_macros = []
 
+
         if (host['Interfaces'] == 'DO_NOT_ADD'):
             print('Skipping host: {}'.format(h_name))
             continue
+
+        if len(host['DNSName']) > 0:
+            h_useip = 0
+        else:
+            h_useip = 1
+        
 
         # Check and skip existing hosts
         if args.s:
@@ -238,11 +246,11 @@ def main(argv):
                 port = 10050
             else:
                 port = 161
-
+            
             h_interfaces.append({
                 'type': interfaceType[interface],
                 'main': 1,
-                'useip': 1,
+                'useip': h_useip,
                 'ip': h_ip,
                 'dns': h_dns,
                 'port': port
